@@ -4,25 +4,30 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    private Rigidbody rb;
-    private float moveSpeed;
-    private float dirX, dirZ;
+    public Rigidbody rb;
+    public float moveSpeed;
+    public float dirX, dirZ;
 
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         moveSpeed = 3f;
         rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         dirX = Input.GetAxis("Horizontal") * moveSpeed;
         dirZ = Input.GetAxis("Vertical") * moveSpeed;
+
+
+        if(Input.GetButtonDown("Jump")) {
+         rb.AddForce(new Vector3(0, 5, 0), ForceMode.Impulse);
+        }
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         rb.velocity = new Vector3(dirX, rb.velocity.y, dirZ);
     }
